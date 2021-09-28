@@ -14,12 +14,26 @@ services:
     - gis_2021_media:/data/media/
 
   django:
-    image: gis_2021_django:3
+    image: gis_2021_django:4
     networks:
       - gis_2021_network
     volumes:
     - gis_2021_static:/home/gis_2021/staticfiles/
     - gis_2021_media:/home/gis_2021/media/
+    secrets:
+      - DJANGO_SECRET_KEY
+
+  mariadb:
+    image: mariadb:10.5
+    networks:
+      - gis_2021_network
+    volumes:
+      - gis_mariadb:/var/lib/mysql
+    environment:
+      MARIADB_ROOT_PASSWORD: password1234
+      MARIADB_DATABASE: django
+      MARIADB_USER: django
+      MARIADB_PASSWORD: password1234
 
 
 networks:
@@ -28,5 +42,8 @@ networks:
 volumes:
   gis_2021_static:
   gis_2021_media:
+  gis_mariadb:
 
-
+secrets:
+  DJANGO_SECRET_KEY:
+    external: true
