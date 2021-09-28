@@ -14,7 +14,7 @@ services:
     - gis_2021_media:/data/media/
 
   django:
-    image: gis_2021_django:4
+    image: gis_2021_django:5
     networks:
       - gis_2021_network
     volumes:
