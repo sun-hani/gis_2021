@@ -22,6 +22,8 @@ services:
     - gis_2021_media:/home/gis_2021/media/
     secrets:
       - DJANGO_SECRET_KEY
+      - MARIADB_USER
+      - MARIADB_PASSWORD
 
   mariadb:
     image: mariadb:10.5
@@ -29,6 +31,10 @@ services:
       - gis_2021_network
     volumes:
       - gis_mariadb:/var/lib/mysql
+    secrets:
+      - MARIADB_ROOT_PASSWORD
+      - MARIADB_USER
+      - MARIADB_PASSWORD
     environment:
       MARIADB_ROOT_PASSWORD: password1234
       MARIADB_DATABASE: django
