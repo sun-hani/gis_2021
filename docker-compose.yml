@@ -5,13 +5,17 @@ services:
   nginx:
     image: nginx:1.19.5
     ports:
-      - 80:80
+      - mode: host
+        target: 80
+        published: 80
+        protocol: tcp
     networks:
       - gis_2021_network
     volumes:
     - /home/ubuntu/nginx.conf:/etc/nginx/nginx.conf
     - gis_2021_static:/data/static/
     - gis_2021_media:/data/media/
+    - gis_log:/var/log/nginx/
 
   django:
     image: gis_2021_django:5
@@ -49,6 +53,7 @@ volumes:
   gis_2021_static:
   gis_2021_media:
   gis_mariadb:
+  gis_log:
 
 secrets:
   DJANGO_SECRET_KEY:
